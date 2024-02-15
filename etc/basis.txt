@@ -1,0 +1,164 @@
+import uuid
+
+from flask import Flask, request, abort  # or we can import render templates to render some data
+from db import stores, items
+
+app = Flask(__name__,
+            static_folder='./flaskr/static',
+            template_folder='./flaskr/templates')
+
+
+# Health check
+@app.get('/')
+def hello_world():
+    return 'Hello World!'
+
+
+@app.get('/store')
+def get_all_stores():
+    return stores
+
+
+@app.get('/store/<string:store_id>')
+def get_stores(store_id):
+    try:
+        return stores[store_id], 200
+    except KeyError:
+        abort(404, description="Store not found")
+
+
+# Post request
+@app.post('/store')
+def create_store():
+    """
+    - Input:
+    {
+        "name: "Store name"
+    }
+    - Output:
+    stores = {
+      "34460c5678344a5e8a6c9c8b577e08a1": {
+        "id": "34460c5678344a5e8a6c9c8b577e08a1",
+        "name": "Kato"
+      }
+    }
+    """
+    store_data = request.get_json()
+    # arguments = request.args  # json as kwargs
+    store_id = uuid.uuid4().hex
+
+    store = {**store_data, "id": store_id}  # **store_data: dictionary unpacking and add it into new dictionary
+    stores[store_id] = store
+
+    return store, 201  # Created
+
+
+# Add item
+@app.post('/item')
+def create_item():
+    """
+    - Input:
+    {
+        "store_id": "Store_id",
+        "name: "xxx",
+        "price: "...,
+        ...
+    }
+    """
+    item_data = request.get_json()
+    # Handle error
+    # if (
+    #     'price' not in item_data
+    #     or 'store_id' not in item_data
+    #     or 'name' not in item_data
+    # ):
+    if not all(key in item_data for key in ['price', 'store_id', 'name']):
+        abort(400,
+              description="Bad request. Ensure 'price', 'store_id', and 'name' are included in JSON payload")
+
+    # check if exist item
+    for item in items.values():
+        if (
+                item_data['name'] == item['name']
+                and item_data['store_id'] == item['store_id']
+        ):
+            abort(400,
+                  description="Item already exists")
+
+    # check if store_id exist in stores table
+    if item_data['store_id'] not in stores:
+        abort(404, description="Store not found.")
+
+    item_id = uuid.uuid4().hex
+    item = {**item_data, "id": item_id}
+    items[item_id] = item
+
+    return item, 201
+
+
+# get items
+@app.get('/item')
+def get_all_items():
+    return {
+        "items": list(items.values())
+    }
+
+
+@app.route('/item/<string:item_id>')
+def get_item(item_id):
+    try:
+        return items[item_id]
+    except KeyError:
+        abort(404, description="Item not found.")
+
+
+# Delete method
+@app.delete('/item/<string:item_id>')
+def delete_item(item_id):
+    try:
+        del items[item_id]
+        return {"message": "Item deleted."}
+    except KeyError:
+        abort(404, description="Item not found")
+
+
+@app.delete('/store/<string:store_id>')
+def delete_store(store_id):
+    try:
+        del stores[store_id]
+        return {
+            "message": "Store deleted."
+        }
+    except KeyError:
+        abort(404, description="Store not found.")
+
+
+# Update item
+@app.put('/item/<string:item_id>')
+def update_item(item_id):
+    item_data = request.get_json()
+    if (
+            'price' not in item_data
+            and 'name' not in item_data
+    ):
+        abort(400, description="Bad request. Ensure 'price' or 'name' is included in Json payload")
+
+    # Check any additional fields
+
+    cols = {'price', 'name'}  # set(['price', 'name'])
+    payload_col = set(item_data.keys())
+    if payload_col - cols:
+        abort(400, description=f"Bad request. Unexpected field: {list(payload_col - cols)}")
+
+    try:
+        item = items[item_id]
+
+        item |= item_data  # update dictionary operator, can update only match key, or insert new key-value data
+
+        return item
+    except KeyError:
+        abort(404, description="Item not found.")
+
+
+if __name__ == '__main__':
+    app.run()

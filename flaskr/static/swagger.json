@@ -1,0 +1,16 @@
+{
+  "info": {
+    "description": "Sample description",
+    "version": "1.0.0",
+    "title": "Kato API site",
+    "contact": {
+      "email": "katoo2706@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "swagger": "2.0",
+  "paths": {}
+}
