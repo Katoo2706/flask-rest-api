@@ -1,6 +1,7 @@
 from flask import Flask, jsonify
 from flask_smorest import Api
 import os
+from dotenv import load_dotenv
 
 from flask_jwt_extended import JWTManager
 
@@ -20,6 +21,7 @@ def create_app():
     app = Flask(__name__,
                 static_folder='./flaskr/static',
                 template_folder='./flaskr/templates')
+    load_dotenv()
 
     app.config["PROPAGATE_EXCEPTIONS"] = True  # The error will be re-raised so that the debugger can display it
     app.config["API_TITLE"] = "Stores REST API"
