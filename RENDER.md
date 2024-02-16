@@ -11,3 +11,10 @@ After deployment, web server will serve as
 
 ## Health check
 ![render-health-check.png](media%2Frender-health-check.png)
+
+# Using Gunicorn in Docker
+> Gunicorn 'Green Unicorn' is a Python WSGI HTTP Server for UNIX. It's a pre-fork worker model. The Gunicorn server is broadly compatible with various web frameworks, simply implemented, light on server resources, and fairly speedy.
+> 
+> Reference: https://gunicorn.org/
+
+
