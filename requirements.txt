@@ -3,10 +3,10 @@ flask~=3.0.1
 flask_smorest
 flask-swagger-ui==4.11.1
 flask-sqlalchemy
-SQLAlchemy~=2.0.25
-psycopg2-binary  # should config sql_achemy for bugging running docker
 marshmallow~=3.20.2
 flask-jwt-extended
 passlib
 flask-migrate
+sqlalchemy
+psycopg2
 gunicorn
