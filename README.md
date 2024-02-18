@@ -50,14 +50,6 @@ Or set env
 FLASK_DEBUG=1
 ```
 
-## Deploy with docker-compose
-> If we change the code, the Flask app will be refreshed
-
-To rebuild the image after add new packages for python
-```bash
-docker-compose up --build
-```
-
 ## Log console to file
 ```bash
 from flask import Flask

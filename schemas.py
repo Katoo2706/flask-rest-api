@@ -77,3 +77,10 @@ class UserSchema(Schema):
     id = fields.Int(dump_only=True)
     username = fields.Str(required=True)
     password = fields.Str(required=True, load_only=True)  # not send to get method
+
+
+class UserRegisterSchema(UserSchema):
+    """
+    We don't need user to send email when Login (With UserSchema)
+    """
+    email = fields.Str(required=True)

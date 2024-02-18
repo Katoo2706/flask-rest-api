@@ -10,3 +10,7 @@ flask-migrate
 sqlalchemy
 psycopg2
 gunicorn
+requests
+Jinja2
+rq
+redis
