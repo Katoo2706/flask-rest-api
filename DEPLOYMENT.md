@@ -103,6 +103,11 @@ queue = Queue(name="emails", connection=connection)
 queue.enqueue(send_welcome_email, user.email, user.username)
 ```
 
+Otherwise, without task queue, we can just use
+```markdown
+send_welcome_email(user.email, user.username)
+```
+
 ## Run background worker
 
 Run rq worker. Connect redis to rq worker
