@@ -47,7 +47,11 @@ class User(MethodView):
             db.session.commit()
 
             # send simple message with task queue
-            queue.enqueue(send_welcome_email, user.email, user.username)
+            # queue.enqueue(send_welcome_email, user.email, user.username)
+
+            # send the email normally
+            send_welcome_email(receiver_email=user.email,
+                               receiver_name=user.username)
 
         except IntegrityError as e:
             abort(400, message=f"Can not insert user {e}")

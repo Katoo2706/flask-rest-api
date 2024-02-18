@@ -113,4 +113,10 @@ docker run -w /app rest-api-recording-email sh -c "rq worker -u <redis_Url> <app
 ```
 
 ## Deploy background worker to render.com
-Add [settings.py](settings.py) to root
+> Note: We can use internal url for Var Env in Render.com to access Reddit database.
+
+1. Add [settings.py](settings.py) to root
+2. Add Background worker in Render.com
+![backgroundworker.png](media%2Fbackgroundworker.png)
+- Add Redis URL variable
+3. 
