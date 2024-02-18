@@ -117,6 +117,7 @@ docker run -w /app rest-api-recording-email sh -c "rq worker -u <redis_Url> <app
 
 1. Add [settings.py](settings.py) to root
 2. Add Background worker in Render.com
-![backgroundworker.png](media%2Fbackgroundworker.png)
+![render-background-worker.png](media%2Frender-background-worker.png)![backgroundworker.png](media%2Fbackgroundworker.png)
 - Add Redis URL variable
-3. 
+3. Add docker command for deployment
+![render-background-worker-2.png](media%2Frender-background-worker-2.png)
