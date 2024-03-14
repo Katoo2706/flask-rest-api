@@ -1,7 +1,6 @@
 # CONTRIBUTING
 
-## Run with docker without gunicorn
-## Deploy with docker-compose
+## Deploy with docker-compose with gunicorn
 > If we change the code, the Flask app will be refreshed
 
 To rebuild the image after add new packages for python
@@ -21,6 +20,7 @@ Run service
 # docker run --name <container_name> -p 5000:5000 -w /app -v "$(pwd):/app" <IMAGE_NAME> sh -c "flask run --host 0.0.0.0"
 
 docker run --name flask-api -p 5000:5000 -w /app -v "$(pwd):/app" rest-api-recording-email sh -c "flask run --host 0.0.0.0"
+
 ```
 
 Run rq worker. Connect redis to rq worker

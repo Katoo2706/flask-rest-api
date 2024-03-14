@@ -46,7 +46,7 @@ class User(MethodView):
             db.session.add(user)
             db.session.commit()
 
-            # send simple message with task queue
+            # send simple message with task queue with background worker
             # queue.enqueue(send_welcome_email, user.email, user.username)
 
             # send the email normally

@@ -1,5 +1,5 @@
 # Deploy with Render.com
-
+Render will create an external API for us with that endpoints.
 ![render-deployment.png](media%2Frender-deployment.png)
 
 After deployment, web server will serve as 
@@ -122,7 +122,7 @@ docker run -w /app rest-api-recording-email sh -c "rq worker -u <redis_Url> <app
 
 1. Add [settings.py](settings.py) to root
 2. Add Background worker in Render.com
-![render-background-worker.png](media%2Frender-background-worker.png)![backgroundworker.png](media%2Fbackgroundworker.png)
+![render-background-worker.png](media%2Frender-background-worker.png)
 - Add Redis URL variable
 3. Add docker command for deployment
 ![render-background-worker-2.png](media%2Frender-background-worker-2.png)
